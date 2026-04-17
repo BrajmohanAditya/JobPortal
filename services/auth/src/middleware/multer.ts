@@ -7,12 +7,15 @@ const uploadFile = multer({ storage: storrage }).single("file");
 export default uploadFile;
 
 /*
-✅ Solution → MULTER
+> Postman ne PDF bheja.
 
-👉 Multer middleware:
+> Multer ne us PDF ko catch kiya aur aapke Node.js server ki RAM (memory) mein 
+hold kar liya (memoryStorage).
 
-Incoming file ko read karta hai
-Process karta hai
-req.file ya req.files mein daal deta hai
+> Phir aapka code us RAM mein rakhe hue PDF Buffer ko uthata hai.
+
+> Aur final step mein, aapka code us PDF ko Cloudinary par bhejta hai 
+
 */
+
 

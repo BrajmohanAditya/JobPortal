@@ -52,3 +52,9 @@ export const registerUser = TryCatch(async (req, res, next) => {
 
   res.json(email);
 });
+
+/*
+  const file = req.file; this line store file details into variable file. file 
+  is inside RAM or ram meh file ko multer rakhta hai. 
+
+*/
