@@ -13,3 +13,12 @@ const getBuffer = (file: any) => {
 }
 
 export default getBuffer;
+
+/*
+buffer.ts ki Entry (The Translator) 
+
+buffer.ts ek translator hai jo Multer ke raw RAM data (jo bhejne mein mushkil hai)
+ko pakad kar ek safe Text String (Data URI) mein badal deta hai taaki aap usko easily
+internet ke zariye dusre server (Upload Service / Cloudinary) ko JSON ke andar bhej 
+sakein.
+*/
