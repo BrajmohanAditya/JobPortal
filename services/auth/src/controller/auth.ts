@@ -43,9 +43,9 @@ export const registerUser = TryCatch(async (req, res, next) => {
       { buffer: fileBuffer.content },
     );
     const [user] =
-      await sql`INSERT INTO users(name, email, password, role, phone_number, bio, resume_url, resume_public_id) VALUES
+      await sql`INSERT INTO users(name, email, password, role, phone_number, bio, resume, resume_public_id) VALUES
         (${name}, ${email}, ${hashedPassword}, ${role}, ${phoneNumber}, ${bio}, ${data.data.secure_url}, ${data.data.public_id}) RETURNING 
-        user_id, name, email, role, phone_number, resume_url, bio, created_at`;
+        user_id, name, email, role, phone_number, resume, bio, created_at`;
 
     registeredUser = user;
   }

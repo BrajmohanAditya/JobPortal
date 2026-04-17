@@ -14,7 +14,8 @@ router.post('/upload', async (req, res) => {
         // Add your upload logic here if needed...
         const cloud = await cloudinary.uploader.upload(buffer, {
             folder: 'uploads',
-            public_id: public_id
+            public_id: public_id,
+            resource_type: 'auto'
         })
 
         return res.json({
