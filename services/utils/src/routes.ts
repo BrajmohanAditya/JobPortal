@@ -29,3 +29,9 @@ router.post('/upload', async (req, res) => {
 });
 
 export default router;
+
+/*
+Zaroor! Yeh routes.ts file aapke Utils Service ka "Worker" hai. 
+Iska kaam hai actual mein file ko Cloudinary tak pahunchana aur agar purani 
+file exist karti hai toh usay delete karna.
+*/
