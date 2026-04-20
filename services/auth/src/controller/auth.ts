@@ -76,7 +76,35 @@ export const loginUser = TryCatch(async (req, res, next) => {
   FILTER (WHERE s.name IS NOT NULL) as skills FROM users u LEFT JOIN user_skills 
   us ON u.user_id = us.user_id LEFT JOIN skills s ON us.skill_id = s.skill_id  
   WHERE u.email = ${email} GROUP BY u.user_id`
+
+  if (user.length === 0) {
+    throw new ErrorHandler("Invalid credentials", 404);
+  }
+
+  const userObject = user[0];
+  const matchPassword = await bcrypt.compare(password, userObject.password);
+
+  if (!matchPassword) {
+    throw new ErrorHandler("Invalid credentials", 401);
+  }
+
+  userObject.skills = userObject.skills || [];
+  delete userObject.password;
+
+  const token = jwt.sign({ id: userObject?.user_id },
+    process.env.JWT_SECRET as string, { expiresIn: "15d" })
+
+
+  res.json({
+    message: 'User logged in successfully',
+    user: userObject,
+    token
+  });
+  // u- user table, us- user_skills table, s- skills table
 })
+
+
+
 
 
 
@@ -84,4 +112,10 @@ export const loginUser = TryCatch(async (req, res, next) => {
   const file = req.file; this line store file details into variable file. file 
   is inside RAM and RAM mein file ko multer rakhta hai. 
 
+ # Left join Query 
+
+  SELECT column1, column2
+  FROM table1
+  LEFT JOIN table2
+  ON table1.column = table2.column;
 */
