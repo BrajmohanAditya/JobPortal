@@ -137,7 +137,7 @@ export const forgotPassword = TryCatch(async (req, res, next) => {
   )
 
 
-  const resetLink = `${process.env.FRONTEND_URL}/reset${resetToken}`;
+  const resetLink = `${process.env.FRONTEND_URL}/reset/${resetToken}`;
 
   const message = {
     to: email,
