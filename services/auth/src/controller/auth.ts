@@ -112,10 +112,46 @@ export const loginUser = TryCatch(async (req, res, next) => {
   const file = req.file; this line store file details into variable file. file 
   is inside RAM and RAM mein file ko multer rakhta hai. 
 
- # Left join Query 
 
-  SELECT column1, column2
-  FROM table1
-  LEFT JOIN table2
-  ON table1.column = table2.column;
+
+  👤 User1   👤 User2   👤 User3   👤 User4   👤 User5
+   |          |          |          |          |
+   ----------- API Server (Producer) ----------
+                        |
+                        v
+                📦 Kafka Queue (Topic)
+          ---------------------------------
+          |   Msg1   Msg2   Msg3   Msg4   Msg5 |
+          ---------------------------------
+              |        |        |
+              v        v        v
+        📧 Worker1  📧 Worker2  📧 Worker3
+           |           |           |
+           v           v           v
+        Email1     Email2     Email3 ...
+
+
+    without kafka
+
+👤 User1   👤 User2   👤 User3   👤 User4   👤 User5
+   |          |          |          |          |
+   ----------- API Server -----------
+   |          |          |          |          |
+   v          v          v          v          v
+                📧 Email Service  
+                        |
+                        v
+                Sending Emails (ONE BY ONE)
+
+Flow:
+User1 → wait → email sent
+User2 → wait → email sent
+User3 → wait → email sent
+...
+
+Flow:
+User1 → wait → email sent
+User2 → wait → email sent
+User3 → wait → email sent
+...
 */
