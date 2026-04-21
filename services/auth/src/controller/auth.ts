@@ -5,6 +5,8 @@ import bcrypt from "bcrypt";
 import getBuffer from "../utils/buffer.js";
 import axios from "axios";
 import jwt from "jsonwebtoken";
+import { forgotPasswordTemplate } from "../templet.js";
+import { publishToTopic } from "../producer.js";
 
 export const registerUser = TryCatch(async (req, res, next) => {
   const { name, email, password, role, bio, phoneNumber } = req.body;
@@ -62,6 +64,7 @@ export const registerUser = TryCatch(async (req, res, next) => {
   });
 });
 
+// LoginUser
 
 export const loginUser = TryCatch(async (req, res, next) => {
   const { email, password } = req.body;
@@ -103,7 +106,53 @@ export const loginUser = TryCatch(async (req, res, next) => {
   // u- user table, us- user_skills table, s- skills table
 })
 
+// Forgot password 
 
+export const forgotPassword = TryCatch(async (req, res, next) => {
+  const { email } = req.body;
+
+  if (!email) {
+    throw new ErrorHandler("Please enter your email", 400);
+  }
+
+  const users = await sql`SELECT user_id, email FROM users WHERE email = ${email}`;
+
+  if (users.length === 0) {
+    return res.json({
+      message: "if that email is registered, we will send you an email"
+    })
+  }
+
+  const user = users[0];
+
+  const resetToken = jwt.sign(
+    {
+      email: user.email,
+      type: "reset",
+    },
+    process.env.JWT_SECRET as string,
+    {
+      expiresIn: "15m",
+    }
+  )
+
+
+  const resetLink = `${process.env.FRONTEND_URL}/reset${resetToken}`;
+
+  const message = {
+    to: email,
+    subject: "Reset Password",
+    html: forgotPasswordTemplate(resetLink)
+
+  }
+
+
+  await publishToTopic("send-mail", message);
+
+  res.json({
+    message: "Password reset link sent to your email"
+  })
+})
 
 
 
