@@ -8,9 +8,8 @@ hold kar liya (memoryStorage).
 
 > Aur final step mein, aapka code us PDF ko Cloudinary par bhejta hai 
 
-# use of cafka
-  const file = req.file; this line store file details into variable file. file 
-  is inside RAM and RAM mein file ko multer rakhta hai. 
+# use of cafka in forgot password ?
+
 
 
 
@@ -48,3 +47,16 @@ Flow:
 User1 → wait → email sent
 User2 → wait → email sent
 User3 → wait → email sent
+
+# use of producer, admin and consumer in kafka ?
+
+> Separate Connections: Haan, Producer (Auth Service) aur Consumer (Utils Service) bilkul anjaan (independent) hain ek dusre se. Dono apna-apna alag TCP connection banate hain us ek Kafka container se.
+
+> Producer ka kaam sirf bhejna: Producer data (message) le jaakar Kafka ke inbox mein daal deta hai aur apna aage ka kaam karta hai.
+
+> Consumer ka kaam uthana: Consumer hamesha dekhta rehta hai ki Kafka ke inbox mein kuch naya aaya kya? Jaise hi aata hai, woh use "pick" karta hai aur real email bhej deta hai.
+
+Admin = Woh aadmi jo aakar raste mein Post-box (Dabba) laga kar jata hai.
+Producer = Woh aadmi jo aakar us dabbe mein chitti (letter) daalta hai.
+Consumer = Woh postman jo us dabbe se chitti nikal kar aage deliver karta hai.
+

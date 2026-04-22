@@ -9,6 +9,7 @@ export const connectKafka = async () => {
         const kafka = new Kafka({
             clientId: "auth-service",
             brokers: [process.env.KAFKA_BROKER || "localhost:9092"]
+            //localhost:9092
         })
         admin = kafka.admin();
         await admin.connect();
@@ -65,3 +66,11 @@ export const disconnectKafka = async () => {
         console.log("✅ Kafka producer disconnected")
     }
 }
+
+/*
+Producer khud email nahi bhejta.
+
+Producer sirf email ki details uthata hai (Kisko bhejna hai? Kya subject hai? Kya link hai?).
+In sabka ek JSON object (message) banata hai.
+Aur isko Kafka ki queue ("send-mail") mein "produce" karke (daal kar) bhool jata hai.
+*/

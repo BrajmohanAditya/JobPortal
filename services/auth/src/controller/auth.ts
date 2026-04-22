@@ -198,9 +198,5 @@ User2 → wait → email sent
 User3 → wait → email sent
 ...
 
-Flow:
-User1 → wait → email sent
-User2 → wait → email sent
-User3 → wait → email sent
 ...
 */
