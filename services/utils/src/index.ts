@@ -15,8 +15,8 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-const app = express();
 
+const app = express();
 
 app.use(cors());
 
@@ -25,10 +25,10 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 app.use('/api/utils', routes);
 
-
 app.listen(process.env.PORT, () => {
     console.log(`Utils service is running on http://localhost:${process.env.PORT}`);
 });
+
 
 /*
 app.use(express.json({ limit: '50mb' }));

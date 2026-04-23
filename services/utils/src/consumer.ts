@@ -30,11 +30,11 @@ export const startSendMailConsumer = async () => {
                         port: 465,
                         secure: true,
                         auth: {
-                            user: "xyz",
-                            pass: "yzx",
+                            user: "cckumarsingh39ar@gmail.com",
+                            pass: "rkeqauagavgvrprj",
                         }
                     })
-                    await transporter.sendMail({ from: "Hireheven <no-reply>", to, subject, html })
+                    await transporter.sendMail({ from: "TechMenia <no-reply>", to, subject, html })
                     console.log(`✅ Mail sent to ${to}`)
                 } catch (error) {
                     console.log("❌ Failed to send email", error);
