@@ -30,8 +30,8 @@ export const startSendMailConsumer = async () => {
                         port: 465,
                         secure: true,
                         auth: {
-                            user: "cckumarsingh39ar@gmail.com",
-                            pass: "rkeqauagavgvrprj",
+                            user: process.env.SMTP_USER,
+                            pass: process.env.SMTP_PASS,
                         }
                     })
                     await transporter.sendMail({ from: "TechMenia <no-reply>", to, subject, html })
