@@ -8,6 +8,7 @@ import jwt from "jsonwebtoken";
 import { forgotPasswordTemplate } from "../templet.js";
 import { publishToTopic } from "../producer.js";
 import { redisClient } from "../index.js";
+   
 
 export const registerUser = TryCatch(async (req, res, next) => {
   const { name, email, password, role, bio, phoneNumber } = req.body;
